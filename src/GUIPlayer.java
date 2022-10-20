@@ -9,6 +9,7 @@ public class GUIPlayer extends Player {
 		scanner = new Scanner(System.in);
 		String name = scanner.nextLine();
 		myName = name;
+		
 	}
 
 	@Override

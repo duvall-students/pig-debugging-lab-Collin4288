@@ -4,6 +4,9 @@ public class ComputerPlayer extends Player{
 	
 	public ComputerPlayer(){
 		super("R2D2");
+		//added in this statment to actually change the name 
+		//never set myName orginially
+		myName="R2D2";
 	}
 
 	@Override

@@ -21,7 +21,9 @@ public class Spinner {
 	 * based on the given probabilities.
 	 */
 	public String numToWord(double spinNumber){	
-		int index = 1;
+//		int index = 1;
+		//startednat index one meaning it could go out of bounds and oink wasn't possible
+		int index = 0;
 		double low = 0;
 		boolean done = false;
 		String result = "";

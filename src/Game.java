@@ -11,6 +11,10 @@ public class Game {
 	public Game(){
 		Player player1 = new GUIPlayer();
 		Player player2 = new ComputerPlayer();
+		//initialized player 1 and 2 which were never initialized originally
+		//since they were never initialized so they would return be seen as null
+		this.player1 = player1;
+		this.player2 = player2;
 		die = new Random();
 		spinner = new Spinner();
 	}
@@ -20,7 +24,9 @@ public class Game {
 	 */
 	public void playGame(){
 		printStartGameMessage();
+		
 		Player whoseTurn = player1;
+		System.out.println(player1);
 		while(!winner()){
 			int roundScore = takeATurn(whoseTurn);
 			whoseTurn.addToScore(roundScore);
@@ -34,7 +40,7 @@ public class Game {
 		}
 		printEndGameMessage();
 	}
-	
+	  
 	/*
 	 * One player's turn.  Ends because
 	 * - roll a 1
@@ -48,19 +54,27 @@ public class Game {
 		boolean keepGoing = true;
 		printStartRoundMessage(whoseTurn);
 		while(keepGoing){
-			int roll = die.nextInt(7);
+//			int roll = die.nextInt(7);
+			// this generated a random number from 0-6 not from 1-6 because of how nextInt() works 
+			int roll = die.nextInt(6)+1;
 			String spin = spinner.spin();
 			System.out.println(roll+ " "+ spin);
 			
-			if(roll == LOSER_ROLL){
-				System.out.println("Lose a turn.");
-				return 0;
-			}
-			else if(spin == LOSER_SPIN.toUpperCase()){
+			//need to put if oink is rolled to lose everything first and then loser roll after that
+			
+//			else if(spin == LOSER_SPIN.toUpperCase()){
+			//should be a .equals for strings
+			if(spin.equals(LOSER_SPIN.toUpperCase())){
 				System.out.println("Too bad!  Lose all your points.");
 				whoseTurn.resetScore();
 				return 0;
 			}
+			else if(roll == LOSER_ROLL){
+				System.out.println("Lose a turn.");
+				return 0;
+			}
+			
+
 			else{
 				roundScore = roundScore + roll;
 				System.out.println("Round total is currently: "+roundScore);
@@ -72,7 +86,9 @@ public class Game {
 	
 	// True if one of the players has won the game.
 	public boolean winner(){
-		return player1.hasWon() && player2.hasWon();
+//		return player1.hasWon() && player2.hasWon();
+		//must be an or statment since they should never both have won 
+		return player1.hasWon() || player2.hasWon();
 	}
 	
 	/* 
